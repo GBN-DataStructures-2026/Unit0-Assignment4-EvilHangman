@@ -11,22 +11,15 @@ Complete the following helper methods inside `EvilHangman.java` in order:
 
 ### 1. `getPattern(String word, String letter)`
 Creates a single pattern string (e.g., `"-LL-"`) for a given word and guessed letter.
-* **Step 1:** Initialize an empty string variable (e.g., `String pattern = "";`).
-* **Step 2:** Loop through every index of `word`.
-* **Step 3:** Compare the single character at index `i` (using `.substring(i, i+1)`) to `letter`.
-  * If it matches, append `letter` to `pattern`.
-  * Otherwise, append `"-"` to `pattern`.
-* **Step 4:** Return `pattern`.
+Loop through each character of 'word' and compare to letter.  Either the letter or a dash will be part of the pattern you return.
+
 
 ---
 
 ### 2. `getPatterns(String letter)`
 Finds every unique pattern string created by `letter` across all current words in `words`.
-* **Step 1:** Create a new `ArrayList<String>` to store unique patterns.
-* **Step 2:** Loop through every `String word` in the `words` instance variable.
-* **Step 3:** Call `getPattern(word, letter)` to get the pattern for that word.
-* **Step 4:** Check if your pattern list already contains this new pattern (use a boolean flag or `.contains()`). If it is not there yet, add it to your pattern list.
-* **Step 5:** Return the list of unique patterns.
+Create and return an ArrayList of Strings with all of the unique patterns across all current words in 'words'.
+You can use the List method .contains(E item) to help check to see if a pattern has already been added to your list.
 
 ---
 
@@ -43,19 +36,14 @@ Groups all current words into separate sub-lists based on their pattern.
 
 ### 4. `getLargestRemaining(List<List<String>> partitions)`
 Finds and returns the sub-list containing the most words.
-* **Step 1:** Create tracking variables for `maxWords = 0` and `maxPosition = 0`.
-* **Step 2:** Iterate through `partitions` using an index variable `i`.
-* **Step 3:** If the size of the sub-list at index `i` (`partitions.get(i).size()`) is greater than `maxWords`, update `maxWords` and set `maxPosition = i`.
-* **Step 4:** Return the largest sub-list using `partitions.get(maxPosition)`.
+
 
 ---
 
 ### 5. `substitute(String found, String letter)`
-Updates the game board (`solution`) with any newly revealed letters.
-* **Step 1:** Create a temporary empty string variable (`String temp = "";`).
-* **Step 2:** Loop through index `i` from `0` to `found.length() - 1`.
-* **Step 3:** If `found.substring(i, i+1)` equals `letter`, append `letter` to `temp`. Otherwise, append the character currently at `solution.substring(i, i+1)`.
-* **Step 4:** Reassign `solution = temp;`.
+Updates the game board (ie you are mutating the instance variable `solution`) with any newly revealed letters.
+Looping through the `found` variable, if any character is equal to `letter` then you update `solution` to now have that letter.
+
 
 ---
 
@@ -65,12 +53,10 @@ Drives the game loop from start to finish.
 * **Step 2:** Inside the loop:
   1. Print game status (`System.out.println(this);`).
   2. Prompt for a letter (`String letter = inputLetter();`) and append it to `guessedLetters`.
-  3. Get unique patterns: `List<String> patterns = getPatterns(letter);`.
-  4. Partition words: `List<List<String>> partitions = getPartitions(patterns, letter);`.
-  5. Cheat! Reassign `words = getLargestRemaining(partitions);`.
-  6. Save `String oldSolution = solution;`.
-  7. Update solution board: `substitute(words.get(0), letter);`.
-  8. If `oldSolution.equals(solution)` (meaning no new letters were revealed), subtract 1 from `remainingGuesses`.
+  3. Use getPatterns, getPartitions, and gtLargestRemaining to update the words instance variable.
+  4. Save `String oldSolution = solution;`.
+  5. Update solution board: `substitute(words.get(0), letter);`.
+  6. If `oldSolution.equals(solution)` (meaning no new letters were revealed), subtract 1 from `remainingGuesses`.
 * **Step 3:** After the loop finishes:
   * If `remainingGuesses > 0`, print `"You win, congratulations!"`.
   * Otherwise, print `"You lose, sorry!"`.
@@ -84,6 +70,9 @@ Drives the game loop from start to finish.
 
 ### Phase 1: Unit Testing (9-Word Dictionary)
 Run `Tester.java` to check each helper method individually before running a full game.
-```bash
-javac Tester.java EvilHangman.java
-java Tester
+
+### Phase 2: Full Game Execution (Dictionary File)
+Once unit tests pass, switch to running EvilHangmanMain.java. 
+This driver can load a full English dictionary (dictionary.txt).
+
+It's also enlightening to print out the number of words remaining (the size of the words variable) during each turn.  You can do this simply by editing EvilHangmanMain.java and changing the second parameter in the constructor call to 'true'.
