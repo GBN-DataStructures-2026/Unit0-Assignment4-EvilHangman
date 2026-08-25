@@ -53,16 +53,13 @@ Drives the game loop from start to finish.
 * **Step 2:** Inside the loop:
   1. Print game status (`System.out.println(this);`).
   2. Prompt for a letter (`String letter = inputLetter();`) and append it to `guessedLetters`.
-  3. Use getPatterns, getPartitions, and gtLargestRemaining to update the words instance variable.
+  3. Use getPatterns, getPartitions, and getLargestRemaining to update the words instance variable.
   4. Save `String oldSolution = solution;`.
   5. Update solution board: `substitute(words.get(0), letter);`.
   6. If `oldSolution.equals(solution)` (meaning no new letters were revealed), subtract 1 from `remainingGuesses`.
 * **Step 3:** After the loop finishes:
-  * If `remainingGuesses > 0`, print `"You win, congratulations!"`.
-  * Otherwise, print `"You lose, sorry!"`.
-  * Print a random secret word from the remaining `words` list:  
-    `int index = (int)(Math.random() * words.size());`  
-    `System.out.println("The word was \"" + words.get(index) + "\"");`
+  If you lose, Print a random secret word from the remaining `words` list:  
+
 
 ---
 
